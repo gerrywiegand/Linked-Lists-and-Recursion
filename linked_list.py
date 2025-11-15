@@ -1,16 +1,11 @@
-
 class Node:
     """
     A Node class to store integer data and a reference to the next node.
     """
 
     def __init__(self, data):
-        """
-        TODO:
-        - Assign the provided 'data' to an instance variable.
-        - Initialize 'next' to None.
-        """
-        pass
+        self.data = data
+        self.next = None
 
 
 class LinkedList:
@@ -19,11 +14,8 @@ class LinkedList:
     """
 
     def __init__(self):
-        """
-        TODO:
-        - Initialize 'head' to None to represent an empty list.
-        """
-        pass
+
+        self.head = None
 
     def insert_at_front(self, data):
         """
