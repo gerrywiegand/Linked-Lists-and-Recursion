@@ -18,58 +18,58 @@ class LinkedList:
         self.head = None
 
     def insert_at_front(self, data):
-        """
-        TODO:
-        - Create a new Node with 'data'.
-        - Insert it at the front of the list (head).
-        - Update 'head' to the new node.
-        """
-        pass
+
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
 
     def insert_at_end(self, data):
-        """
-        (Optional) TODO:
-        - Create a new Node with 'data'.
-        - Traverse to the end of the list.
-        - Set the last node's 'next' reference to the new node.
-        """
-        pass
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = new_node
 
     def recursive_sum(self):
-        """
-        TODO:
-        - Use recursion to sum all node data in the list.
-        - Consider a helper function that:
-          1. Checks if the current node is None, and returns 0 if so.
-          2. Otherwise, returns node.data + recursive call on node.next.
-        - Return the total sum.
-        """
-        pass
+        def helper(node):
+            if node is None:
+                return 0
+            return node.data + helper(node.next)
+
+        return helper(self.head)
 
     def recursive_reverse(self):
-        """
-        TODO:
-        - Reverse the list in-place using recursion.
-        - Possible approach:
-          1. Use a helper function that accepts 'prev' and 'current'.
-          2. Base case: if current is None, return 'prev' (new head).
-          3. Otherwise, swap pointers and recurse.
-        - Update 'head' to the returned new head.
-        """
-        pass
+        def helper(prev, current):
+            if current is None:
+                return prev
+            next_node = current.next
+            current.next = prev
+            return helper(current, next_node)
+
+        self.head = helper(None, self.head)
 
     def recursive_search(self, target):
-        """
-        TODO:
-        - Return True if 'target' is found, otherwise False, using recursion.
-        - Consider a helper function that:
-          1. Returns False if the current node is None.
-          2. Returns True if current node's data == target.
-          3. Otherwise, recurse on the next node.
-        """
-        pass
+
+        def helper(node, target):
+            if node is None or not target:
+                return False
+            if node.data == target:
+                return True
+            return helper(node.next, target)
+
+        return helper(self.head, target)
 
     def display(self):
+        current = self.head
+        output = []
+        while current.next:
+            output.append(f"{current.data} ->")
+            current = current.next
+        output.append(str(current.data))
+        print(output)
         """
         TODO:
         - Print the contents of the list for debugging.
@@ -77,3 +77,16 @@ class LinkedList:
         - Format output as 'val -> val -> val -> None' or similar.
         """
         pass
+
+
+if __name__ == "__main__":
+    ll = LinkedList()
+    ll.insert_at_end(10)
+    ll.insert_at_end(20)
+    ll.insert_at_front(5)
+    print("Sum of elements:", ll.recursive_sum())  # Output: 35
+    ll.display()  # Expected Output: 5 -> 10 -> 20 -> None
+    print("Search for 10:", ll.recursive_search(10))  # Output: True
+    print("Search for 15:", ll.recursive_search(15))  # Output: False
+    ll.recursive_reverse()
+    ll.display()  # Expected Output: 20 -> 10 -> 5 -> None
